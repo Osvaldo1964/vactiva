@@ -28,8 +28,8 @@ class Roles extends Controllers
 			}
 			$arrData[$i]['options'] = '<div class="text-center">
 				<button class="btn btn-secondary btn-sm btnPermisosRol" rl="' . $arrData[$i]['idRol'] . '" title="Permisos"><i class="fas fa-key"></i></button>
-				<button class="btn btn-info btn-sm btnEditRol rl="' . $arrData[$i]['idRol'] . '" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-				<button class="btn btn-danger btn-sm btnDelRol rl="' . $arrData[$i]['idRol'] . '" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+				<button class="btn btn-info btn-sm btnEditRol" rl="' . $arrData[$i]['idRol'] . '" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+				<button class="btn btn-danger btn-sm btnDelRol" rl="' . $arrData[$i]['idRol'] . '" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
 				</div>';
 		}
 		echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
@@ -96,7 +96,7 @@ class Roles extends Controllers
 			$requestDelete = $this->model->deleteRol($intIdRol);
 			if ($requestDelete == "ok") {
 				$arrResponse = array("status" => true, "msg" => 'Se ha eliminado el rol');
-			} else if ($requestDelete == 'exist'){	
+			} else if ($requestDelete == 'exist') {
 				$arrResponse = array("status" => false, "msg" => 'No es posible eliminar un rol asociado a usuarios.');
 			} else {
 				$arrResponse = array("status" => false, "msg" => 'Error al eliminar el rol.');

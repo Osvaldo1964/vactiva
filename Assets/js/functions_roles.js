@@ -27,13 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
     formRol.onsubmit = function (e) {
         e.preventDefault();
         var intidRol = document.querySelector('#idRol').value;
-        var strName = document.querySelector('#txtName').value;
-        var strDescription = document.querySelector('#txtDescription').value;
+        var strName = document.querySelector('#txtNombre').value;
+        var strDescription = document.querySelector('#txtDescripcion').value;
         var intStatus = document.querySelector('#listStatus').value;
         if (strName == '' || strDescription == '' || intStatus == '') {
             swal("Atención", "Todos los campos son obligatorios.", "error");
             return false;
         }
+       
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url + '/Roles/setRol';
         var formData = new FormData(formRol);
@@ -48,11 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     swal("Roles de Usuario", objData.msg, "success");
                     tableRoles.ajax.reload(function () {
                         fntEditRol();
-                        fntDelRol();
+                        //fntDelRol();
                     });
                 } else {
                     swal("Error", objData.msg, "error");
                 }
+            } else {
+                swal("Atención", "Error en el proceso.", "error");
             }
         };
     }
@@ -79,38 +82,43 @@ function fntEditRol() {
     var btnEditRol = document.querySelectorAll(".btnEditRol");
     btnEditRol.forEach(function (btnEditRol) {
         btnEditRol.addEventListener('click', function () {
+
             document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
             document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
             document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
             document.querySelector('#btnText').innerHTML = "Actualizar";
 
-            var idRol = this.getAttribute("rl");
+            var idrol = this.getAttribute("rl");
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url + '/Roles/getRol/' + idRol;
+            var ajaxUrl = base_url + '/Roles/getRol/' + idrol;
             request.open("GET", ajaxUrl, true);
             request.send();
+
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
                     var objData = JSON.parse(request.responseText);
                     if (objData.status) {
-                        document.querySelector('#idRol').value = objData.data.idRol;
-                        document.querySelector('#txtName').value = objData.data.nameRol;
-                        document.querySelector('#txtDescription').value = objData.data.descripRol;
-                        if (objData.data.statusRol == 1) {
+                        document.querySelector("#idRol").value = objData.data.idRol;
+                        document.querySelector("#txtNombre").value = objData.data.nameRol;
+                        document.querySelector("#txtDescripcion").value = objData.data.descripRol;
+
+                        if (objData.data.status == 1) {
                             var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
                         } else {
                             var optionSelect = '<option value="2" selected class="notBlock">Inactivo</option>';
                         }
-                        var htmlSelect = `$optionSelect;
-                                        <option value="1">Activo</option>;
-                                        <option value="2">Inactivo</option>`;
-                        document.querySelector('#listStatus').innerHTML = htmlSelect;
-
+                        var htmlSelect = `${optionSelect}
+                                          <option value="1">Activo</option>
+                                          <option value="2">Inactivo</option>
+                                        `;
+                        document.querySelector("#listStatus").innerHTML = htmlSelect;
+                        $('#modalFormRol').modal('show');
                     } else {
                         swal("Error", objData.msg, "error");
                     }
                 }
-            };
+            }
+
         });
     });
 }

@@ -34,11 +34,11 @@
             $this->strDescripcion = $descripcion;
             $this->intStatus = $status;
 
-            $sql = "SELECT * FROM roles WHERE nombreRol = '{$this->strNombre}' ";
+            $sql = "SELECT * FROM roles WHERE nameRol = '{$this->strNombre}' ";
             $request = $this->select_all($sql);
 
             if (empty($request)) {
-                $query = "INSERT INTO roles (nombreRol, descripcionRol, statusRol) VALUES (?,?,?)";
+                $query = "INSERT INTO roles (nameRol, descripRol, statusRol) VALUES (?,?,?)";
                 $arrData = array($this->strNombre, $this->strDescripcion, $this->intStatus);
                 $request_insert = $this->insert($query, $arrData);
                 $return = $request_insert;
@@ -55,11 +55,11 @@
             $this->strDescripcion = $descripcion;
             $this->intStatus = $status;
 
-            $sql = "SELECT * FROM roles WHERE nombreRol = '{$this->strNombre}' AND idRol != $this->intIdRol";
+            $sql = "SELECT * FROM roles WHERE nameRol = '{$this->strNombre}' AND idRol != $this->intIdRol";
             $request = $this->select_all($sql);
 
             if (empty($request)) {
-                $sql = "UPDATE roles SET nombreRol = ?, descripcionRol = ?, statusRol = ? WHERE idRol = $this->intIdRol";
+                $sql = "UPDATE roles SET nameRol = ?, descripRol = ?, statusRol = ? WHERE idRol = $this->intIdRol";
                 $arrData = array($this->strNombre, $this->strDescripcion, $this->intStatus);
                 $request = $this->update($sql, $arrData);
             } else {
