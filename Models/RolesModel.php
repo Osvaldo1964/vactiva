@@ -2,7 +2,7 @@
 
 	class RolesModel extends Mysql
 	{
-        public $intIdRol;
+        public $intidRol;
         public $strNombre;
         public $strDescripcion;
         public $intStatus;
@@ -21,8 +21,8 @@
 
         public function selectRol(int $idRol)
         {
-            $this->intIdRol = $idRol;
-            $sql = "SELECT * FROM roles WHERE idRol = $this->intIdRol";
+            $this->intidRol = $idRol;
+            $sql = "SELECT * FROM roles WHERE idRol = $this->intidRol";
             $request = $this->select($sql);
             return $request;
         }
@@ -50,12 +50,12 @@
 
         public function updateRol(int $idRol, string $nombre, string $descripcion, int $status)
         {
-            $this->intIdRol = $idRol;
+            $this->intidRol = $idRol;
             $this->strNombre = $nombre;
             $this->strDescripcion = $descripcion;
             $this->intStatus = $status;
 
-            $sql = "SELECT * FROM roles WHERE nameRol = '{$this->strNombre}' AND idRol != $this->intIdRol";
+            $sql = "SELECT * FROM roles WHERE nameRol = '{$this->strNombre}' AND idRol != $this->intidRol";
             $request = $this->select_all($sql);
 
             if (empty($request)) {
@@ -70,11 +70,11 @@
 
         public function deleteRol(int $idRol)
         {
-            $this->intIdRol = $idRol;
-            $sql = "SELECT * FROM usuarios WHERE rolidUser = $this->intIdRol";
+            $this->intidRol = $idRol;
+            $sql = "SELECT * FROM usuarios WHERE rolidUser = $this->intidRol";
             $request = $this->select_all($sql);
             if (!empty($request)) {
-                $sql = "UPDATE roles SET statusRol = ? WHERE idRol = $this->intIdRol";
+                $sql = "UPDATE roles SET statusRol = ? WHERE idRol = $this->intidRol";
                 $arrData = array(0);
                 $request = $this->update($sql, $arrData);
                 if ($request) {

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     swal("Roles de Usuario", objData.msg, "success");
                     tableRoles.ajax.reload(function () {
                         fntEditRol();
-                        //fntDelRol();
+                        fntDelRol();
                     });
                 } else {
                     swal("Error", objData.msg, "error");
@@ -75,7 +75,7 @@ function openModal() {
 
 window.addEventListener('load', function () {
     fntEditRol();
-    //fntDelRol();
+    fntDelRol();
 }, false);
 
 function fntEditRol() {
