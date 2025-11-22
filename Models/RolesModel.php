@@ -59,7 +59,7 @@
             $request = $this->select_all($sql);
 
             if (empty($request)) {
-                $sql = "UPDATE roles SET nameRol = ?, descripRol = ?, statusRol = ? WHERE idRol = $this->intIdRol";
+                $sql = "UPDATE roles SET nameRol = ?, descripRol = ?, statusRol = ? WHERE idRol = $this->intidRol";
                 $arrData = array($this->strNombre, $this->strDescripcion, $this->intStatus);
                 $request = $this->update($sql, $arrData);
             } else {
@@ -71,9 +71,9 @@
         public function deleteRol(int $idRol)
         {
             $this->intidRol = $idRol;
-            $sql = "SELECT * FROM usuarios WHERE rolidUser = $this->intidRol";
+            $sql = "SELECT * FROM users WHERE rolidUser = $this->intidRol";
             $request = $this->select_all($sql);
-            if (!empty($request)) {
+            if (empty($request)) {
                 $sql = "UPDATE roles SET statusRol = ? WHERE idRol = $this->intidRol";
                 $arrData = array(0);
                 $request = $this->update($sql, $arrData);
