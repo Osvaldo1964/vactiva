@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     tableRoles.ajax.reload(function () {
                         fntEditRol();
                         fntDelRol();
+                        fntPermisos();
                     });
                 } else {
                     swal("Error", objData.msg, "error");
@@ -76,6 +77,7 @@ function openModal() {
 window.addEventListener('load', function () {
     fntEditRol();
     fntDelRol();
+    fntPermisos();
 }, false);
 
 function fntEditRol() {
@@ -156,7 +158,7 @@ function fntDelRol(){
                                 tableRoles.ajax.reload(function () {
                                     fntEditRol();
                                     fntDelRol();
-                                    //fntPermisos();
+                                    fntPermisos();
                                 });
                             }else{
                                 swal("Atención!", objData.msg , "error");
